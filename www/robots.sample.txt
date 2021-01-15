@@ -1,0 +1,7 @@
+##### test server #############
+User-agent:*
+Disallow: /
+
+##### production server #######
+User-agent:*
+Allow: /
