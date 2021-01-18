@@ -6,48 +6,35 @@
  *
  * @package kingster_school
  */
-
 get_header();
 ?>
+    <div class="container">
+        <div class="search-wrap">
+            <?php if ( have_posts() ) : ?>
+                <header class="page-header">
+                    <h2 class="page-title">
+                        <?php
+                        printf( esc_html__( 'Search Results for: "%s"', 'kingster-school' ), '<span id="keyword">' . get_search_query() . '</span>' );
+                        ?>
+                    </h2>
+                </header>
+                <?php
+                while ( have_posts() ) :
+                    the_post();
+                    get_template_part( 'template-parts/content', 'search' );
 
-	<main id="primary" class="site-main">
+                endwhile;
 
-		<?php if ( have_posts() ) : ?>
+                the_posts_navigation();
 
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'kingster_school' ), '<span>' . get_search_query() . '</span>' );
-					?>
-				</h1>
-			</header><!-- .page-header -->
+            else :
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+                get_template_part( 'template-parts/content', 'none' );
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
-
-			endwhile;
-
-			the_posts_navigation();
-
-		else :
-
-			get_template_part( 'template-parts/content', 'none' );
-
-		endif;
-		?>
-
-	</main><!-- #main -->
-
+            endif;
+            ?>
+        </div>
+    </div>
 <?php
 get_sidebar();
 get_footer();
